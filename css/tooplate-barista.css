@@ -1196,5 +1196,25 @@ strong {
   .timeline-container-right::before {
     top: 13px;
   }
+  .map-container {
+  overflow: hidden; /* Taşmayı engeller */
+  padding-bottom: 56.25%; /* Haritanın en boy oranını korur (16:9) */
+  position: relative;
+  height: 0;
 }
+
+.map-container iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+	iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+}
+
 
