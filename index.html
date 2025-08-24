@@ -5,28 +5,7 @@
     <head>
 
 
-<script>
-const ekleBtn = document.getElementById('ekleBtn');
-const resimInput = document.getElementById('resimInput');
-const slides = document.getElementById('slides');
 
-ekleBtn.addEventListener('click', () => {
-    resimInput.click(); // Dosya seçim penceresi açılır
-});
-
-resimInput.addEventListener('change', () => {
-    const file = resimInput.files[0];
-    if(file){
-        const reader = new FileReader();
-        reader.onload = function(e){
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            slides.appendChild(img); // Galeriye ekle
-        }
-        reader.readAsDataURL(file);
-    }
-});
-</script>
 		
 		<link rel="stylesheet" href="css/style.css">
 
@@ -1083,6 +1062,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </body>
 
 </html>
+
 
 
 
