@@ -3,7 +3,8 @@
 	<title>Ankara motosiklet tamircisi</title>
 	
     <head>
-
+<h1><?php session_start(); ?>
+<button id="ekleBtn" <?php if(!isset($_SESSION['giris'])) echo 'disabled'; ?>>EKLE</button></h1>
 		<link rel="stylesheet" href="css/style.css">
 
 <script src="js/slider-min.js" type="text/javascript">
@@ -1056,6 +1057,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </body>
 
 </html>
+
 
 
 
