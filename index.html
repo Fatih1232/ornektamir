@@ -3,8 +3,33 @@
 	<title>Ankara motosiklet tamircisi</title>
 	
     <head>
+		<input type="file" id="resimInput" style="display:none;" accept="image/*">
 <h1><?php session_start(); ?>
 <button id="ekleBtn" <?php if(!isset($_SESSION['giris'])) echo 'disabled'; ?>>EKLE</button></h1>
+
+<script>
+const ekleBtn = document.getElementById('ekleBtn');
+const resimInput = document.getElementById('resimInput');
+const slides = document.getElementById('slides');
+
+ekleBtn.addEventListener('click', () => {
+    resimInput.click(); // Dosya seçim penceresi açılır
+});
+
+resimInput.addEventListener('change', () => {
+    const file = resimInput.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            slides.appendChild(img); // Galeriye ekle
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+		
 		<link rel="stylesheet" href="css/style.css">
 
 <script src="js/slider-min.js" type="text/javascript">
@@ -1057,6 +1082,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </body>
 
 </html>
+
 
 
 
