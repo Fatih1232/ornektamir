@@ -765,27 +765,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="arrow right" id="next">&#10095;</div>
 		 <button id="ekleBtn" disabled>EKLE</button>
   </div>
-	 		<form id="girisForm">
-  <input type="text" id="kullanici_adi" placeholder="Kullanıcı Adı" required>
-  <input type="password" id="sifre" placeholder="Şifre" required>
-  <button type="submit">Giriş</button>
-</form>
-	 <script>
-const dogruKullanici = "behzat06";
-const dogruSifre = "B0650";
-
-document.getElementById('girisForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const kullanici = document.getElementById('kullanici_adi').value;
-    const sifre = document.getElementById('sifre').value;
-
-    if(kullanici === dogruKullanici && sifre === dogruSifre){
-        localStorage.setItem('giris', 'true');
-        window.location.href = "index.html"; // Giriş başarılıysa index.html'e yönlendir
-    } else {
-        alert("Kullanıcı adı veya şifre yanlış!");
-    }
-});
 </script>
   <script>
     const slides = document.getElementById("slides");
@@ -1084,6 +1063,7 @@ document.getElementById('girisForm').addEventListener('submit', function(e){
     </body>
 
 </html>
+
 
 
 
