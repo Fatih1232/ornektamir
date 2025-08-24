@@ -3,32 +3,14 @@
 	<title>Ankara motosiklet tamircisi</title>
 	
     <head>
-
+<button id="ekleBtn" disabled>EKLE</button>
 
 <script>
 const ekleBtn = document.getElementById('ekleBtn');
-const resimInput = document.getElementById('resimInput');
-const slides = document.getElementById('slides');
-
-ekleBtn.addEventListener('click', () => {
-    resimInput.click(); // Dosya seçim penceresi açılır
-});
-
-resimInput.addEventListener('change', () => {
-    const file = resimInput.files[0];
-    if(file){
-        const reader = new FileReader();
-        reader.onload = function(e){
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            slides.appendChild(img); // Galeriye ekle
-        }
-        reader.readAsDataURL(file);
-    }
-});
-</script>
-
-		
+if(localStorage.getItem('giris') === 'true'){
+    ekleBtn.disabled = false;
+}
+</script>	
 		<link rel="stylesheet" href="css/style.css">
 
 <script src="js/slider-min.js" type="text/javascript">
@@ -783,10 +765,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="arrow right" id="next">&#10095;</div>
 		 <button id="ekleBtn" disabled>EKLE</button>
   </div>
-	 		<input type="file" id="resimInput" style="display:none;" accept="image/*">
-<h1><?php session_start(); ?>
-<button id="ekleBtn" <?php if(!isset($_SESSION['giris'])) echo 'disabled'; ?>EKLE</button></h1>
+	 		<form id="girisForm">
+  <input type="text" id="kullanici_adi" placeholder="Kullanıcı Adı" required>
+  <input type="password" id="sifre" placeholder="Şifre" required>
+  <button type="submit">Giriş</button>
+</form>
+	 <script>
+const dogruKullanici = "behzat06";
+const dogruSifre = "B0650";
 
+document.getElementById('girisForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const kullanici = document.getElementById('kullanici_adi').value;
+    const sifre = document.getElementById('sifre').value;
+
+    if(kullanici === dogruKullanici && sifre === dogruSifre){
+        localStorage.setItem('giris', 'true');
+        window.location.href = "index.html"; // Giriş başarılıysa index.html'e yönlendir
+    } else {
+        alert("Kullanıcı adı veya şifre yanlış!");
+    }
+});
+</script>
   <script>
     const slides = document.getElementById("slides");
     const slider = document.getElementById("slider");
@@ -1084,6 +1084,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </body>
 
 </html>
+
 
 
 
