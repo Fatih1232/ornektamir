@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://ornektamir.com/sitemap.xml
+Sitemap: https://ornektamir.netlify.app/sitemap.xml
+
