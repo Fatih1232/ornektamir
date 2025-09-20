@@ -1,52 +1,3 @@
-<?php
-session_start();
-$kullanici_adi = "b";
-$sifre = "p";
-if (isset($_POST['login'])) {
-    if ($_POST['username'] === $kullanici_adi && $_POST['password'] === $sifre) {
-        $_SESSION['giris'] = true;
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
-    } else {
-        $hata = "❌ Kullanıcı adı veya şifre yanlış!";
-    }
-}
-if (isset($_GET['logout'])) {
-    session_destroy();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
-}
-if (isset($_SESSION['giris']) && $_SESSION['giris'] === true && isset($_POST['son_sil'])) {
-    $klasor = __DIR__ . "/uploads/";
-    $dosyalar = glob($klasor . "*");
-    if (!empty($dosyalar)) {
-        
-        usort($dosyalar, function($a, $b) {
-            return filemtime($a) - filemtime($b);
-        });
-
-        $son_dosya = end($dosyalar);
-
-        if (is_file($son_dosya)) {
-            unlink($son_dosya);
-            $mesaj = "✅ Son eklenen dosya silindi: " . basename($son_dosya);
-        }
-    } else {
-        $mesaj = "❌ Silinecek dosya bulunamadı.";
-    }
-}
-$klasor = __DIR__ . "/uploads/";
-$resimler = glob($klasor . "*.{jpg,jpeg,png,gif,webp}", GLOB_BRACE);
-$webDir = 'images/webresim/';
-$fsDir  = __DIR__ . '/' . $webDir;
-$latestWeb = null;
-$files = glob($fsDir . '*.{jpg,jpeg,png,webp,gif}', GLOB_BRACE);
-if ($files) {
-    usort($files, function($a,$b){ return filemtime($b) <=> filemtime($a); }); // en yeni başta
-    $latestWeb = $webDir . basename($files[0]);
-}
-?>
-<!doctype html>
 <html lang="tr">
     <head>
         <meta charset="utf-8">
@@ -1165,3 +1116,4 @@ setInterval(() => {
         <script src="js/custom.js"></script>
     </body>
 </html>
+
