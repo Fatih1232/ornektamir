@@ -122,68 +122,6 @@ color:white;
       transform: scale(1.05);
     }
     }
-	.login-box input[type="submit"],
-.upload-box input[type="submit"],
-form button[name="temizle"] {
-    font-size: 18px;
-    padding: 12px 24px; 
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-.login-box input[type="submit"]:hover,
-.upload-box input[type="submit"]:hover,
-form button[name="temizle"]:hover {
-    transform: scale(1.05);
-}
-	.upload-box input[type="file"] {
-    display: none; 
-}
-.upload-box label {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-.upload-box label:hover {
-    transform: scale(1.05);
-}
-.elfsight-app-12345678-90ab-cdef-1234-567890abcdef .elfsight-badge {
-    display: none !important;
-}
-button {
-    padding: 12px 24px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 8px;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-}
-button:hover {
-    background-color: darkred;
-}
-	  .image-boyut {
-  width: 240px; 
-  height: 80px;
-		  margin-left:-60px;
-}
-	  
-    .admin-image-controls .btn {
-        padding: 6px 12px; /* dikey ve yatay boşluk */
-        font-size: 18px;    /* yazı boyutu */
-    }
-
-    input[type="file"] {
-        font-size: 16px;       /* yazı boyutu */
-        padding: 10px 15px;    /* iç boşluk */
-        cursor: pointer;       /* fare imlecini değiştir */
-    }
-
 				</style>		
     </head>  
     <body>
@@ -371,42 +309,6 @@ button:hover {
   font-weight: bold;
   z-index: 2;
   white-space: nowrap;
-}
-
-.motor {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-  z-index: 1;
-  opacity: 0;
-  will-change: transform, opacity;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in-out;
-  animation-duration: 2s;
-}
-.motor1 {
-  top: -200px;
-  left: -200px;
-  animation-name: motor1Anim;
-}
-@keyframes motor1Anim {
-  0% { transform: translate(0,0) scale(0.5); opacity: 0; }
-  100% { transform: translate(220px,220px) scale(1); opacity: 1; }
-}
-.motor2 { top: -200px; right: -200px; animation-name: motor2Anim; }
-@keyframes motor2Anim { 0% { transform: translate(0,0) scale(0.5); opacity:0;} 100% {transform: translate(-220px,220px) scale(1); opacity:1;} }
-.motor3 { bottom: -200px; left: -200px; animation-name: motor3Anim; }
-@keyframes motor3Anim { 0% { transform: translate(0,0) scale(0.5); opacity:0;} 100% {transform: translate(220px,-220px) scale(1); opacity:1;} }
-.motor4 { bottom: -200px; right: -200px; animation-name: motor4Anim; }
-@keyframes motor4Anim { 0% { transform: translate(0,0) scale(0.5); opacity:0;} 100% {transform: translate(-220px,-220px) scale(1); opacity:1;} }
-.video-wrapper {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0;
 }
 .custom-video {
   width: 100%;
@@ -1116,4 +1018,5 @@ setInterval(() => {
         <script src="js/custom.js"></script>
     </body>
 </html>
+
 
