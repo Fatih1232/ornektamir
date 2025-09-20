@@ -448,38 +448,8 @@ color:white;
                                     </div>
                                 </div>
                             </div>
-  <h2>GÜNCEL BAKIMINI YAPTIĞIMIZ MOTORLAR</h2>
-	<div class="slider" id="slider">
-  <div class="slides" id="slides">
-    <?php
-    foreach ($resimler as $resim) {
-        $dosya = basename($resim);
-        echo "<img src='/uploads/$dosya' alt='galeri resim'>";
-    }
-    ?>
-  </div>
-  <div class="arrow left" id="prev">&#10094;</div>
-  <div class="arrow right" id="next">&#10095;</div>
-</div>
-<script>
-const slides = document.getElementById("slides");
-const images = slides.querySelectorAll("img");
-const total = images.length;
-let index = 0;
-function showSlide(i) {
-  index = (i + total) % total;
-  slides.style.transform = `translateX(${-index * 100}%)`;
-}
-document.getElementById("next").addEventListener("click", () => {
-  showSlide(index + 1);
-});
-document.getElementById("prev").addEventListener("click", () => {
-  showSlide(index - 1);
-});
-setInterval(() => {
-  showSlide(index + 1);
-}, 3000);
-</script>
+
+  
                         </div>
                     </div>
                 </section>
@@ -954,6 +924,7 @@ setInterval(() => {
         <script src="js/custom.js"></script>
     </body>
 </html>
+
 
 
 
