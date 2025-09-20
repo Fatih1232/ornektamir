@@ -142,70 +142,6 @@ color:white;
 	  <li><a href="#section_5">İkinci El</a></li>
 	  <li><a href="#section_6">Yorumlar</a></li>
 	  <li><a href="#section_7">İletişim</a></li>
-	  <?php if (!isset($_SESSION['giris'])): ?>
-    <div class="login-box">
-        <h3>YÖNETİM PANELİ</h3>
-        <?php if (isset($hata)) echo "<p style='color:red;'>$hata</p>"; ?>
-        <form method="post">
-            <input type="text" name="username" placeholder="Kullanıcı Adı" required><br><br>
-            <input type="password" name="password" placeholder="Şifre" required><br><br>
-            <input type="submit" name="login" value="Giriş Yap">
-        </form>
-    </div>
-<?php else: ?>
-	  <div>
-    <p><a href="?logout=1">🚪 Çıkış Yap</a></p>
-    <form method="post" style="display:inline;" 
-      onsubmit="return confirm('Son eklenen resim silinecek! Emin misiniz?');">
-    <button type="submit" name="son_sil" 
-            style="padding: 12px 24px; font-size: 18px; font-weight: bold; border-radius: 8px; background-color: red; color: white; cursor: pointer;">
-        🗑️ Güncel yaptığımız işler son ekleneni sil
-    </button>
-</form>
-	  </div>
-<?php if (isset($mesaj)) echo "<p>$mesaj</p>"; ?>
-    <!-- Upload Formu -->
-   <div class="upload-box">
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-        <label for="dosya">📁 Güncel yaptığımız işler resim yükle</label>
-        <input type="file" name="dosya[]" id="dosya" accept="image/*" multiple required>
-        <input type="submit" value="Seçilen resimleri yükle">
-    </form>
-</div>
-	  <div>
-		   <hr/>
-		   <div class="admin-image-controls">
-    <form action="resim_ekle.php" method="post" enctype="multipart/form-data">
-    <label for="resim" class="btn btn-primary btn-lg">Sayfada kalacak resim dosyası seç</label>
-    <input type="file" name="resim" id="resim" accept="image/*" style="display:none;" required>
-    <button type="submit" class="btn btn-success btn-lg">Seçilen resimleri yükle</button>
-</form>
-    <?php if ($latestWeb): ?>
-        <div>
-			<form action="resim_sil.php" method="post" onsubmit="return confirm('Son eklenen resmi silmek istediğinizden emin misiniz? (Geri alınabilir: çöp klasörüne taşınır)');">
-        <input type="hidden" name="action" value="delete_last">
-        <button type="submit" class="btn btn-danger btn-lg">Sayfaya son Eklenen Resmi Sil</button>
-    </form>
-            
-        </div>
-    <?php else: ?>
-        <p>Henüz eklenmiş resim yok.</p>
-    <?php endif; ?>
-
-  
-    
-</div>
-	  </div>
-    <div class="slider">
-        <?php if (!empty($resimler)): ?>
-            <?php foreach ($resimler as $resim): ?>
-                <img src="uploads/<?php echo basename($resim); ?>" alt="slider resim">
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>Henüz resim yüklenmedi.</p>
-        <?php endif; ?>
-    </div>
-<?php endif; ?>
   </ul>
 </nav>
     <style>
@@ -1018,5 +954,6 @@ setInterval(() => {
         <script src="js/custom.js"></script>
     </body>
 </html>
+
 
 
