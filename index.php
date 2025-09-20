@@ -1,0 +1,1167 @@
+<?php
+session_start();
+$kullanici_adi = "b";
+$sifre = "p";
+if (isset($_POST['login'])) {
+    if ($_POST['username'] === $kullanici_adi && $_POST['password'] === $sifre) {
+        $_SESSION['giris'] = true;
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        $hata = "❌ Kullanıcı adı veya şifre yanlış!";
+    }
+}
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+if (isset($_SESSION['giris']) && $_SESSION['giris'] === true && isset($_POST['son_sil'])) {
+    $klasor = __DIR__ . "/uploads/";
+    $dosyalar = glob($klasor . "*");
+    if (!empty($dosyalar)) {
+        
+        usort($dosyalar, function($a, $b) {
+            return filemtime($a) - filemtime($b);
+        });
+
+        $son_dosya = end($dosyalar);
+
+        if (is_file($son_dosya)) {
+            unlink($son_dosya);
+            $mesaj = "✅ Son eklenen dosya silindi: " . basename($son_dosya);
+        }
+    } else {
+        $mesaj = "❌ Silinecek dosya bulunamadı.";
+    }
+}
+$klasor = __DIR__ . "/uploads/";
+$resimler = glob($klasor . "*.{jpg,jpeg,png,gif,webp}", GLOB_BRACE);
+$webDir = 'images/webresim/';
+$fsDir  = __DIR__ . '/' . $webDir;
+$latestWeb = null;
+$files = glob($fsDir . '*.{jpg,jpeg,png,webp,gif}', GLOB_BRACE);
+if ($files) {
+    usort($files, function($a,$b){ return filemtime($b) <=> filemtime($a); }); // en yeni başta
+    $latestWeb = $webDir . basename($files[0]);
+}
+?>
+<!doctype html>
+<html lang="tr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="PtKIdFN2zjZfrjGS9G3qBuXV3Q5O4ClY7itnAzID0AU" />
+        <meta name="author" content="">
+        <title>Ankara Motor Tamir | Örnek Tamir Servisi</title>
+<meta name="description" content="Ankara’da motor bakım ve tamir hizmetleri. Deneyimli ekibimizle güvenilir servis.">
+		<link rel="canonical" href="https://ornektamir.com/" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">     
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,400;0,600;0,700;1,200;1,700&display=swap" rel="stylesheet">           
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/vegas.min.css" rel="stylesheet">
+        <link href="css/tooplate-barista.css" rel="stylesheet">      
+		<script src="https://analytics.ahrefs.com/analytics.js" data-key="I4WW9gPHeZlmVdYqP1ufGA" async></script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P7SVQN8X');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VW9974KGR"></script>
+		<script>
+window.addEventListener('load', () => {
+  const video = document.querySelector('.custom-video');
+  video.play().catch(() => {
+    console.log('Otomatik oynatma engellendi.');
+  });
+});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9VW9974KGR');
+    window.addEventListener("resize", () => showSlide(index));
+  </script>
+  <script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P7SVQN8X"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <style>		
+			h1
+			{
+			color:white;
+			text-align:center;
+			}
+	        h2
+	        {
+				color:white;
+			text-align:center;
+	         }
+	        h3{
+				color:#00ff59;
+	        }
+	        h5{
+				color:#f8ff94;
+	        }
+			h4
+			{
+			text-align:center;
+color:white;			
+			}
+			  .slider {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.slides {
+  display: flex;              
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+.slides img {
+  min-width: 100%;           
+  height: 500px;
+  object-fit: cover;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  user-select: none;
+}
+.left {
+  left: 10px;
+}
+.right {
+  right: 10px;
+}
+    @media (max-width: 600px) {
+      .arrow {
+        font-size: 28px;
+        padding: 6px;
+      }
+		   .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    }
+	.login-box input[type="submit"],
+.upload-box input[type="submit"],
+form button[name="temizle"] {
+    font-size: 18px;
+    padding: 12px 24px; 
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.login-box input[type="submit"]:hover,
+.upload-box input[type="submit"]:hover,
+form button[name="temizle"]:hover {
+    transform: scale(1.05);
+}
+	.upload-box input[type="file"] {
+    display: none; 
+}
+.upload-box label {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.upload-box label:hover {
+    transform: scale(1.05);
+}
+.elfsight-app-12345678-90ab-cdef-1234-567890abcdef .elfsight-badge {
+    display: none !important;
+}
+button {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+button:hover {
+    background-color: darkred;
+}
+	  .image-boyut {
+  width: 240px; 
+  height: 80px;
+		  margin-left:-60px;
+}
+	  
+    .admin-image-controls .btn {
+        padding: 6px 12px; /* dikey ve yatay boşluk */
+        font-size: 18px;    /* yazı boyutu */
+    }
+
+    input[type="file"] {
+        font-size: 16px;       /* yazı boyutu */
+        padding: 10px 15px;    /* iç boşluk */
+        cursor: pointer;       /* fare imlecini değiştir */
+    }
+
+				</style>		
+    </head>  
+    <body>
+                <nav class="navbar navbar-expand-lg"> 				
+                    <div class="container">
+							
+                        <a href="index.php">
+                           <img src="images/logo.png" class="image-boyut" alt="Ankara Motor">
+                        </a>			
+                        <button id="menu-btn">☰</button>
+						<nav id="menu" class="hidden">
+						 
+  <ul>
+    <li><a href="#section_1">Ana Sayfa</a></li>
+    <li><a href="#section_2">Hakkımızda</a></li>
+    <li><a href="#section_3">İşlerimiz</a></li>
+	  <li><a href="#section_4">Yedek Parça</a></li>
+	  <li><a href="#section_5">İkinci El</a></li>
+	  <li><a href="#section_6">Yorumlar</a></li>
+	  <li><a href="#section_7">İletişim</a></li>
+	  <?php if (!isset($_SESSION['giris'])): ?>
+    <div class="login-box">
+        <h3>YÖNETİM PANELİ</h3>
+        <?php if (isset($hata)) echo "<p style='color:red;'>$hata</p>"; ?>
+        <form method="post">
+            <input type="text" name="username" placeholder="Kullanıcı Adı" required><br><br>
+            <input type="password" name="password" placeholder="Şifre" required><br><br>
+            <input type="submit" name="login" value="Giriş Yap">
+        </form>
+    </div>
+<?php else: ?>
+	  <div>
+    <p><a href="?logout=1">🚪 Çıkış Yap</a></p>
+    <form method="post" style="display:inline;" 
+      onsubmit="return confirm('Son eklenen resim silinecek! Emin misiniz?');">
+    <button type="submit" name="son_sil" 
+            style="padding: 12px 24px; font-size: 18px; font-weight: bold; border-radius: 8px; background-color: red; color: white; cursor: pointer;">
+        🗑️ Güncel yaptığımız işler son ekleneni sil
+    </button>
+</form>
+	  </div>
+<?php if (isset($mesaj)) echo "<p>$mesaj</p>"; ?>
+    <!-- Upload Formu -->
+   <div class="upload-box">
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+        <label for="dosya">📁 Güncel yaptığımız işler resim yükle</label>
+        <input type="file" name="dosya[]" id="dosya" accept="image/*" multiple required>
+        <input type="submit" value="Seçilen resimleri yükle">
+    </form>
+</div>
+	  <div>
+		   <hr/>
+		   <div class="admin-image-controls">
+    <form action="resim_ekle.php" method="post" enctype="multipart/form-data">
+    <label for="resim" class="btn btn-primary btn-lg">Sayfada kalacak resim dosyası seç</label>
+    <input type="file" name="resim" id="resim" accept="image/*" style="display:none;" required>
+    <button type="submit" class="btn btn-success btn-lg">Seçilen resimleri yükle</button>
+</form>
+    <?php if ($latestWeb): ?>
+        <div>
+			<form action="resim_sil.php" method="post" onsubmit="return confirm('Son eklenen resmi silmek istediğinizden emin misiniz? (Geri alınabilir: çöp klasörüne taşınır)');">
+        <input type="hidden" name="action" value="delete_last">
+        <button type="submit" class="btn btn-danger btn-lg">Sayfaya son Eklenen Resmi Sil</button>
+    </form>
+            
+        </div>
+    <?php else: ?>
+        <p>Henüz eklenmiş resim yok.</p>
+    <?php endif; ?>
+
+  
+    
+</div>
+	  </div>
+    <div class="slider">
+        <?php if (!empty($resimler)): ?>
+            <?php foreach ($resimler as $resim): ?>
+                <img src="uploads/<?php echo basename($resim); ?>" alt="slider resim">
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Henüz resim yüklenmedi.</p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+  </ul>
+</nav>
+    <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: white;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      position: relative;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      margin-left: 10px;
+    }
+    #menu-btn {
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 5px;
+      margin-right: 10px;
+      z-index: 11;
+    }
+    #menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 8px;
+      padding: 15px;
+    }
+    #menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #menu li {
+      margin: 15px 0;
+    }
+    #menu a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    #menu a:hover {
+      color: orange;
+    }
+    #menu.show {
+      display: block;
+    }
+    @media (max-width: 768px) {
+      #menu {
+        top: 60px;
+        right: 0;
+        width: 100%;       
+        text-align: center; 
+        border-radius: 0;
+      }
+
+      #menu li {
+        margin: 20px 0;
+      }
+
+      #menu a {
+        font-size: 20px; 
+      }
+    }
+		
+		
+		.animasyon-alani {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #111;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.text-box {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.motor {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  z-index: 1;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+}
+.motor1 {
+  top: -200px;
+  left: -200px;
+  animation-name: motor1Anim;
+}
+@keyframes motor1Anim {
+  0% { transform: translate(0,0) scale(0.5); opacity: 0; }
+  100% { transform: translate(220px,220px) scale(1); opacity: 1; }
+}
+.motor2 { top: -200px; right: -200px; animation-name: motor2Anim; }
+@keyframes motor2Anim { 0% { transform: translate(0,0) scale(0.5); opacity:0;} 100% {transform: translate(-220px,220px) scale(1); opacity:1;} }
+.motor3 { bottom: -200px; left: -200px; animation-name: motor3Anim; }
+@keyframes motor3Anim { 0% { transform: translate(0,0) scale(0.5); opacity:0;} 100% {transform: translate(220px,-220px) scale(1); opacity:1;} }
+.motor4 { bottom: -200px; right: -200px; animation-name: motor4Anim; }
+@keyframes motor4Anim { 0% { transform: translate(0,0) scale(0.5); opacity:0;} 100% {transform: translate(-220px,-220px) scale(1); opacity:1;} }
+.video-wrapper {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+.custom-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+  </style>
+   <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+    menuBtn.addEventListener("click", () => {
+      menu.classList.toggle("show");
+    });
+  </script>                      
+                    </div>
+                </nav>
+ <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+                   <div class="animasyon-alani">
+  <div class="text-box">
+	 <div class="container">					
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-12 mx-auto">
+								<h3>Ankara'nın Motosiklet Tamircisi</h3> 
+                                <h1>BEHZAT USTA</h1>
+                                <p class="text-white mb-4 pb-lg-2">
+									BAKIM / <em />SERVİS /<em /> TAMİR /<em /> ÇEKİCİ <br />
+					                HİZMETİ VERİLMEKTEDİR.
+                                </p>
+                                <a class="btn custom-btn custom-border-btn smoothscroll me-3" href="#section_2">
+                                    HAKKIMIZDA
+                                </a>
+                                <a class="btn custom-btn smoothscroll me-2 mb-2" href="#section_3"><strong>İŞLERİMİZ</strong></a>
+                            </div>
+                        </div>
+		</div>
+	   </div>
+ <img src="/images/motor1.webp" alt="Motor 1" class="motor motor1" alt="Ankara tamir">
+<img src="/images/motor2.webp" alt="Motor 2" class="motor motor2" alt="Ankara motosiklet">
+<img src="/images/motor3.webp" alt="Motor 3" class="motor motor3" alt="Motor tamir">
+<img src="/images/motor4.webp" alt="Motor 4" class="motor motor4" alt="Ankara motor">
+</div>
+                    <div class="hero-slides"></div>
+                </section>
+                <section class="about-section section-padding" id="section_2">
+                    <div class="section-overlay"></div>
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-12">
+ <div class="video-wrapper">
+    <video autoplay muted loop playsinline class="custom-video">
+        <source src="videos/dukkan.mp4" type="video/mp4">
+    </video>
+</div>
+</div>
+							<style>
+	.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.custom-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .video-wrapper {
+    aspect-ratio: 4/3;
+  }
+}
+							</style>
+                            <div class="col-lg-5 col-12 mt-4 mt-lg-0 mx-auto">
+                                <h4>Motosiklet Tamircisi Ankara</h4>
+                                <h2 class="text-white mb-3">Örnek Tamir</h2>
+                                <p class="text-white">Motosikletlerde performans için yağ bakımı ve dönemlik bakım gereklidir.</p>
+                                <p class="text-white">Bizimle iletişime geçin.<a href="https://wa.me/+905368506600" target="_blank">whatsapp</a></p>
+                                <a href="#barista-team" class="smoothscroll btn custom-btn custom-border-btn mt-3 mb-4">Tamir Bakım</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="barista-section section-padding section-bg" id="barista-team">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12 col-12 text-center mb-4 pb-lg-2">
+                                <h4>Tamir ve bakımını yaptığımız motorlar</h4>
+                                <h2 class="text-white">En Popüler</h2>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="team-block-wrap">
+                                    <div class="team-block-info d-flex flex-column">
+                                        <div class="d-flex mt-auto mb-3">
+                                            <h4 class="text-white mb-0">Harley Davidson</h4>
+                                            <p class="badge ms-4"><em>Yeni</em></p>
+                                        </div>
+                                        <p class="text-white mb-0"> En yeni Harley motosiklet modelleri</p>
+                                    </div>
+                                    <div class="team-block-image-wrap">
+                                        <img src="images/motor/harleydavinson.jpg" class="team-block-image img-fluid" alt="Ankara motor">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="team-block-wrap">
+                                    <div class="team-block-info d-flex flex-column">
+                                        <div class="d-flex mt-auto mb-3">
+                                            <h4 class="text-white mb-0">Racing</h4>
+                                            <p class="badge ms-4"><em>Boss</em></p>
+                                        </div>
+                                        <p class="text-white mb-0">En yeni Racing motosiklet modelleri</p>
+                                    </div>
+                                    <div class="team-block-image-wrap">
+                                        <img src="images/motor/racingmotor.jpg" class="team-block-image img-fluid" alt="Ankara motor">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="team-block-wrap">
+                                    <div class="team-block-info d-flex flex-column">
+                                        <div class="d-flex mt-auto mb-3">
+                                            <h4 class="text-white mb-0">Ducati</h4>
+                                            <p class="badge ms-4"><em>Tutku</em></p>
+                                        </div>
+                                        <p class="text-white mb-0">En yeni Ducati motosiklet modelleri</p>
+                                    </div>
+                                    <div class="team-block-image-wrap">
+                                        <img src="images/motor/ducati.jpg" class="team-block-image img-fluid" alt="Ankara motor">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <div class="team-block-wrap">
+                                    <div class="team-block-info d-flex flex-column">
+                                        <div class="d-flex mt-auto mb-3">
+                                            <h4 class="text-white mb-0">Honda CBR 1000 RR</h4>
+                                            <p class="badge ms-4"><em>Hız</em></p>
+                                        </div>
+                                        <p class="text-white mb-0">En yeni Honda motosiklet modelleri</p>
+                                    </div>
+                                    <div class="team-block-image-wrap">
+                                        <img src="images/motor/hondaCBR.jpg" class="team-block-image img-fluid" alt="Ankara motor">
+                                    </div>
+                                </div>
+                            </div>
+				 <div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="team-block-wrap">
+                                    <div class="team-block-info d-flex flex-column">
+                                        <div class="d-flex mt-auto mb-3">
+                                            <h4 class="text-white mb-0">Suzuki</h4>
+                                            <p class="badge ms-4"><em>Yarış</em></p>
+                                        </div>
+                                        <p class="text-white mb-0"> En yeni Suzuki motosiklet modelleri</p>
+                                    </div>
+                                    <div class="team-block-image-wrap">
+                                        <img src="images/suzuki.jpg" class="team-block-image img-fluid" alt="Ankara motor">
+                                    </div>
+                                </div>
+                            </div>
+				<div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="team-block-wrap">
+                                    <div class="team-block-info d-flex flex-column">
+                                        <div class="d-flex mt-auto mb-3">
+                                            <h4 class="text-white mb-0">Yamaha</h4>
+                                            <p class="badge ms-4"><em>Rakipsiz</em></p>
+                                        </div>
+                                        <p class="text-white mb-0"> En yeni Yamaha motosiklet modelleri</p>
+                                    </div>
+                                    <div class="team-block-image-wrap">
+                                        <img src="images/yamaha.webp" class="team-block-image img-fluid" alt="Ankara motor">
+                                    </div>
+                                </div>
+                            </div>
+				<div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="team-block-wrap">
+                                    <div class="team-block-info d-flex flex-column">
+                                        <div class="d-flex mt-auto mb-3">
+                                            <h4 class="text-white mb-0">ATV</h4>
+                                            <p class="badge ms-4"><em>Dağ Gezisi</em></p>
+                                        </div>
+                                        <p class="text-white mb-0"> En yeni ATV modelleri</p>
+                                    </div>
+                                    <div class="team-block-image-wrap">
+                                        <img src="images/atv.png" class="team-block-image img-fluid" alt="Ankara motor">
+                                    </div>
+                                </div>
+                            </div>
+				<div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="team-block-wrap">
+                                    <div class="team-block-info d-flex flex-column">
+                                        <div class="d-flex mt-auto mb-3">
+                                            <h4 class="text-white mb-0">Honda</h4>
+                                            <p class="badge ms-4"><em>Sürat</em></p>
+                                        </div>
+                                        <p class="text-white mb-0"> En yeni Honda motosiklet modelleri</p>
+                                    </div>
+                                    <div class="team-block-image-wrap">
+                                        <img src="images/honda.jpg" class="team-block-image img-fluid" alt="Ankara motor">
+                                    </div>
+                                </div>
+                            </div>
+  <h2>GÜNCEL BAKIMINI YAPTIĞIMIZ MOTORLAR</h2>
+	<div class="slider" id="slider">
+  <div class="slides" id="slides">
+    <?php
+    foreach ($resimler as $resim) {
+        $dosya = basename($resim);
+        echo "<img src='/uploads/$dosya' alt='galeri resim'>";
+    }
+    ?>
+  </div>
+  <div class="arrow left" id="prev">&#10094;</div>
+  <div class="arrow right" id="next">&#10095;</div>
+</div>
+<script>
+const slides = document.getElementById("slides");
+const images = slides.querySelectorAll("img");
+const total = images.length;
+let index = 0;
+function showSlide(i) {
+  index = (i + total) % total;
+  slides.style.transform = `translateX(${-index * 100}%)`;
+}
+document.getElementById("next").addEventListener("click", () => {
+  showSlide(index + 1);
+});
+document.getElementById("prev").addEventListener("click", () => {
+  showSlide(index - 1);
+});
+setInterval(() => {
+  showSlide(index + 1);
+}, 3000);
+</script>
+                        </div>
+                    </div>
+                </section>
+                <section class="menu-section section-padding" id="section_3">
+                    <div class="container">
+                        <div class="row">                      
+                            <div class="col-lg-6 col-12">
+                                <div class="menu-block-wrap">
+                                    <div class="text-center mb-4 pb-lg-2">
+                                        <h5>Çekici Hizmeti</h5>
+                                        <h4 class="text-white">Servis</h4>
+                                    </div>
+                                    <div class="menu-block">
+                                        <div class="d-flex">
+                                            <h4>BMW</h4>
+                                            <span class="underline"></span>
+                                            <strong class="text-white ms-auto"><del></del></strong>
+                                            <strong class="ms-2"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>Çekici Hizmeti</h5>
+                                        </div>
+                                    </div>
+                                    <div class="menu-block my-4">
+                                        <div class="d-flex">
+                                            <h4>
+                                                Ducati
+                                                <span class="badge ms-3"></span>
+                                            </h4> 
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>Çekici Hizmeti</h5>
+                                        </div>
+                                    </div>
+                                    <div class="menu-block">
+                                        <div class="d-flex">
+                                            <h4>Harley-Davidson</h4>     
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>Çekici Hizmeti</h5>
+                                        </div>
+                                    </div>
+                                    <div class="menu-block my-4">
+                                        <div class="d-flex">
+                                            <h4>KTM</h4>
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>Çekici Hizmeti</h5>
+                                        </div>
+                                    </div>
+									 <div class="menu-block my-4">
+                                        <div class="d-flex">
+                                            <h4>
+                                                Yamaha
+                                                <span class="badge ms-3"></span>
+                                            </h4>
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>Çekici Hizmeti</h5>
+                                        </div>
+                                    </div>
+									 <div class="menu-block my-4">
+                                        <div class="d-flex">
+                                            <h4>
+                                                Kawasaki
+                                                <span class="badge ms-3"></span>
+                                            </h4>
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>Çekici Hizmeti</h5>
+                                        </div>
+                                    </div>
+									 <div class="menu-block my-4">
+                                        <div class="d-flex">
+                                            <h4>
+                                                Suzuki
+                                                <span class="badge ms-3"></span>
+                                            </h4>
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>Çekici Hizmeti</h5>
+                                        </div>
+                                    </div>
+					<div class="menu-block">
+                                        <div class="d-flex">
+                                            <h4>Honda</h4>
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>Çekici Hizmeti</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					</div></section>
+<section class="barista-section section-padding section-bg" id="barista-team">
+                    <div class="container">
+                        <div class="row justify-content-center">
+ <div class="col-lg-12 col-12 text-center mb-4 pb-lg-2">                 
+	 <h4 class="text-white">İşyerimiz Ve İşlerimiz</h4>
+                                <h2 class="text-white">Ankara Motosiklet Tamiri</h2><br/>
+	                        <h2 class="text-white">Örnek Tamir</h2>
+                            </div>
+<?php
+            $dir = "images/webresim/";
+            $files = glob($dir . "*.{jpg,jpeg,png,webp,gif}", GLOB_BRACE);
+            sort($files); // sıralı gelsin
+            foreach ($files as $file) {
+                echo '<img src="'.$file.'" alt="Ankara motor">' . "\n";
+            }
+            ?>
+        </div>
+    </div>
+</section>
+	 <section class="reviews-section section-padding section-bg" id="section_4">
+                    <div class="container">
+                        <div class="row justify-content-center">
+ <div class="col-lg-12 col-12 text-center mb-4 pb-lg-2">
+                                <h2>MOTOSİKLET İKİNCİ EL <br /> YEDEK PARÇA</h2>
+	 <style>
+		 .slider2 {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.slide-track {
+  display: flex;
+  animation: scroll 30s linear infinite;
+}
+
+.slide-track img {
+  height: 80px;        /* tüm cihazlarda sabit yükseklik */
+  width: auto;         /* orantılı genişlik */
+  margin-right: 10px;  /* aradaki boşluk */
+  object-fit: contain; /* görüntü bozulmaz */
+}
+
+/* Küçük ekranlarda resimleri daha küçük yap */
+@media (max-width: 768px) {
+  .slide-track img {
+    height: 60px;
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-track img {
+    height: 50px;
+    margin-right: 6px;
+  }
+}
+
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+	 </style>
+		<div class="slider2">
+  <div class="slide-track">
+    <img src="images/resim/c3.jpg" width="94" height="88" alt="YEDEK PARÇA"/>
+    <img src="images/resim/c2.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/b1.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e2.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e3.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e4.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e6.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e7.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e8.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/o1.jpg" width="94" height="88" alt="Ankara motor"/>
+
+    <img src="images/resim/c3.jpg" width="94" height="88" alt="YEDEK PARÇA"/>
+    <img src="images/resim/c2.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/b1.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e2.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e3.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e4.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e6.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e7.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/e8.jpg" width="94" height="88" alt="Ankara motor"/>
+    <img src="images/resim/o1.jpg" width="94" height="88" alt="Ankara motor"/>
+  </div>
+</div><br />
+	 <table>
+		 <tr>            
+				 <img src="images/resim/a1.jpg" width="325" height="325" alt="Ankara motor">
+			 <h2>ÖN/YAN GRANAJ</h2><br />
+				<a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br />
+		 </tr>
+		 <tr>
+				 <img src="images/resim/a2.jpg" width="325" height="325" alt="Ankara motor">
+	             <h2>KAPORTA LAMBASI/FAR</h2><br />
+		 <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br />
+		 </tr>
+			 <tr>
+				 <img src="images/resim/a3.jpg" width="325" height="325" alt="Ankara motor">
+	             <h2>SELLE POUR 750 VFR</h2>
+				 <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br />
+			 </tr>
+			  <tr>
+				 <img src="images/resim/a4.jpg" width="325" height="325" alt="Ankara motor">
+	             <h2>RÜZGARLIK</h2>
+				  <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br />
+			 </tr>
+		 <tr></tr>
+             <tr>
+				 <img src="images/resim/e1.jpg" width="325" height="325" alt="Ankara motor">
+	             <h2>EGZOZ</h2>
+				 <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br />
+			 </tr>
+			 <tr>
+				 <img src="images/resim/b2.jpg" width="325" height="325" alt="Ankara motor">
+	             <h2>ARKA ÇANTA</h2>
+				 <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br />
+			 </tr>
+			 <tr>
+				 <img src="images/resim/c1.jpg" width="325" height="325" alt="Ankara motor">
+	             <h2>SİPERLİK/ÖN CAM</h2>
+				 <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br />
+			 </tr>
+			  <tr>
+				 <img src="images/resim/d1.jpg" width="325" height="325" alt="Ankara motor">
+	             <h2>MOTOSİKLET YAKIT DEPOSU</h2>
+				  <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br />
+			 </tr>
+		 <tr></tr> 
+	 </table></div></div></div></section>
+	  <section class="reviews-section section-padding section-bg" id="section_5">
+		  <style>
+			  .resim-orta {
+  display: flex;
+  justify-content: center;  /* yatay ortala */
+  align-items: center;      /* dikey ortala */
+  padding: 20px 0;          /* üst-alt boşluk, içerik sıkışmasın */
+}
+
+.resim-orta img {
+  max-width: 100%;   /* resim container'a uyumlu */
+  height: auto;      /* orantıyı koru */
+  border-radius: 10px; /* isteğe bağlı stil */
+}
+		  
+		  </style>
+<h2>İKİNCİ EL SATILIK MOTOR</h2>
+<table class="resim-orta">
+	     <tr>            
+			 <td><img src="images/satilikmotor/s1.jpg" width="325" height="325" alt="Ankara motor"><br />
+			 <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br /></td>
+		 </tr>
+<tr>
+</tr>
+			  <tr>
+				  <td><img src="images/satilikmotor/s4.jpg" width="325" height="325" alt="Ankara motor"><br/>
+				  <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br /></td>
+			 </tr>
+             <tr>
+				<td> <img src="images/satilikmotor/s5.jpg" width="325" height="325" alt="Ankara motor"><br />
+				 <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br /></td>
+			 </tr>
+		 <tr>
+			<td> <img src="images/satilikmotor/s6.jpg" width="325" height="325" alt="Ankara motor"><br />
+				 <a href="https://wa.me/905368506600" target="_blank"><h3>İletişime Geçin</h3></a><br /></td>
+         </tr> 
+     </table>
+	</section>
+					<div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                                <div class="menu-block-wrap">
+                                    <div class="text-center mb-4 pb-lg-2">
+                                        <h5>Yedek Parça</h5>
+                                        <h4 class="text-white">Bakım</h4>
+                                    </div>
+
+                                   <div class="menu-block my-4">
+                                        <div class="d-flex">
+                                            <h4>
+                                                Çim Makinesi
+                                            </h4>                                   
+                                            <span class="underline"></span>
+
+                                            <strong class="text-white ms-auto"><del></del></strong>
+
+                                            <strong class="ms-2"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+											<h5>BAKIM SERVİS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="menu-block my-4">
+                                        <div class="d-flex">
+                                            <h4>
+                                                Jeneratör
+                                            </h4>      
+                                            <span class="underline"></span>
+                                            <strong class="text-white ms-auto"><del></del></strong>
+                                            <strong class="ms-2"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+											<h5>BAKIM SERVİS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="menu-block">
+                                        <div class="d-flex">
+                                            <h4>Hızarlı Motor</h4>
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+											<h5>BAKIM SERVİS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="menu-block my-4">
+                                        <div class="d-flex">
+                                            <h4>İlaçlama Pompası</h4>   
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+											<h5>BAKIM SERVİS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="menu-block">
+                                        <div class="d-flex">
+                                            <h4>Tırpan Motoru</h4>
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>BAKIM SERVİS</h5>
+                                        </div>
+                                    </div>
+					<div class="menu-block">
+                                        <div class="d-flex">
+                                            <h4>Çapa Motoru</h4>
+                                            <span class="underline"></span>
+                                            <strong class="ms-auto"><a href="https://wa.me/+905368506600" target="_blank"><h3>İletişim</h3></a></strong>
+                                        </div>
+                                        <div class="border-top mt-2 pt-2">
+                                            <h5>BAKIM SERVİS</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+	                 </div>
+                <section class="reviews-section section-padding section-bg" id="section_6">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12 col-12 text-center mb-4 pb-lg-2">
+								<h4 class="text-white">ÖRNEK TAMİR MOTOR BAKIM SERVİSİ</h4>   
+                            </div>
+							<script src="https://widget.trustmary.com/bVKz2Gt2I"></script>
+							                                        </div>
+					</div></section>
+                <section class="contact-section section-padding" id="section_7">
+                    <div class="container">
+                        <div class="row">   
+                            <div class="col-lg-12 col-12">
+                                <h4 class="text-white">Müşteri Memnuniyeti</h4>
+                                <h2 class="text-white mb-4 pb-lg-2">İletişim</h2>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <form action="mail_gonder.php" method="post" class="custom-form contact-form" role="form">
+    <div class="row">    
+        <div class="col-lg-6 col-12">
+            <label for="name" class="form-label">İsim <sup class="text-danger">*</sup></label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="İsminizi yazın" required>
+        </div>
+        <div class="col-lg-6 col-12">
+            <label for="email" class="form-label">Mail</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Mail adresinizi yazın" required>
+        </div>
+        <div class="col-12">
+            <label for="message" class="form-label">Bizlere Mesajınız</label>
+            <textarea name="message" rows="4" class="form-control" id="message" placeholder="Mesajınızı yazın" required></textarea>      
+        </div>
+    </div>
+    <div class="col-lg-5 col-12 mx-auto mt-3">
+        <button type="submit" class="form-control">Gönder</button>
+    </div>
+</form>
+
+                            </div>
+				<div class="map-container">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4413.620995477548!2d32.69321237949301!3d39.887989464337274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d3395b868a0855%3A0x2628c5c3eede9219!2s%C3%96RNEK%20Motosiklet%20Tamir%20Bak%C4%B1m%20%C3%87ekici%20Hizmeti!5e0!3m2!1str!2str!4v1754393138284!5m2!1str!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="site-footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-12 me-auto">
+                                <em class="text-white d-block mb-4">ADRES</em>
+                                <strong class="text-white">
+                                    📍Çayyolu, 2661/3. Sk. No:10/C, 06810 Çankaya/Ankara
+                                </strong>
+                                <ul class="social-icon mt-4"></ul>
+                                    <li class="social-icon-item"></li>	
+	<table>
+   <tr>
+	   <td>
+		   <a href="https://www.facebook.com/ornek.cim.hizar.makinesi.onarim0cayyolu0umitkoy/?locale=tr_TR" class="social-icon-link">
+        <img src="images/resim/facebook.png" style="width: 25px; height: 25px;" alt="Ankara motor"></a>
+	   </td>
+	   <td>
+		      <a href="https://wa.me/+905368506600" class="social-icon-link">
+        <img src="images/resim/whatsapp.png" style="width: 25px; height: 25px;" alt="Ankara motor"></a>
+	   </td>
+	   <td>
+		      <a href=" https://www.instagram.com/behzatornek/" class="social-icon-link">
+        <img src="images/resim/insta.png" style="width: 25px; height: 25px;" alt="Ankara motor"></a>
+	   </td>
+   </tr>
+   </table>				  
+                            </div>
+                            <div class="col-lg-3 col-12 mt-4 mb-3 mt-lg-0 mb-lg-0">
+                                <em class="text-white d-block mb-4">BİZE ULAŞIN</em>
+                                <p class="d-flex mb-1">
+                                    <strong class="me-2">GSM:</strong>
+                                    <a href="" class="site-footer-link">
+                                        (+90) 
+                                        536 850 66 00
+                                    </a>
+                                </p>
+								 <p class="d-flex mb-1">
+                                    <strong class="me-2">MAİL:</strong>
+                                    <a href="" class="site-footer-link">
+                                        behzat@ornektamir.com
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="col-lg-5 col-12">
+                                <em class="text-white d-block mb-4">ÇALIŞMA SAATLERİMİZ</em>
+                                <ul class="opening-hours-list">
+                                    <li class="d-flex">
+                                        PAZARTESİ-CUMARTESİ
+                                        <span class="underline"></span>
+                                        <strong>9:00 - 18:00</strong>
+                                    </li>
+                                </ul>
+                            </div>
+							<div class="col-lg-8 col-12 mt-4">
+                                <p class="copyright-text mb-0">Örnek Tamir 2025 
+                                    - Ankara: <a rel="sponsored" href="https://www.google.com/maps/place/%C3%96RNEK+Motosiklet+Tamir+Bak%C4%B1m+%C3%87ekici+Hizmeti/@39.8876566,32.6931414,17z/data=!3m1!4b1!4m6!3m5!1s0x14d3395b868a0855:0x2628c5c3eede9219!8m2!3d39.8876566!4d32.6957163!16s%2Fg%2F11gv0w51tz?entry=ttu&g_ep=EgoyMDI1MDgxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" width="10" height="10">Motor Tamircisi</a></p>
+                            </div>
+                    </div>
+					</div>
+                </footer>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/vegas.min.js"></script>
+        <script src="js/custom.js"></script>
+    </body>
+</html>
