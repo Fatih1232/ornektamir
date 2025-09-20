@@ -128,7 +128,7 @@ color:white;
                 <nav class="navbar navbar-expand-lg"> 				
                     <div class="container">
 							
-                        <a href="index.php">
+                        <a href="index.html">
                            <img src="images/logo.png" class="image-boyut" alt="Ankara Motor">
                         </a>			
                         <button id="menu-btn">☰</button>
@@ -564,14 +564,6 @@ color:white;
                                 <h2 class="text-white">Ankara Motosiklet Tamiri</h2><br/>
 	                        <h2 class="text-white">Örnek Tamir</h2>
                             </div>
-<?php
-            $dir = "images/webresim/";
-            $files = glob($dir . "*.{jpg,jpeg,png,webp,gif}", GLOB_BRACE);
-            sort($files); // sıralı gelsin
-            foreach ($files as $file) {
-                echo '<img src="'.$file.'" alt="Ankara motor">' . "\n";
-            }
-            ?>
         </div>
     </div>
 </section>
@@ -921,6 +913,7 @@ color:white;
         <script src="js/custom.js"></script>
     </body>
 </html>
+
 
 
 
